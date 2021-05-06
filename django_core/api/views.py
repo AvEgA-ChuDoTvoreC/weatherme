@@ -1,5 +1,6 @@
 import json
 import datetime
+from pprint import pprint
 
 from django import forms
 from django.http import HttpResponse, JsonResponse
@@ -27,10 +28,12 @@ from weather_app.wb import WBRequest
 #  "Volgograd", "Magnitogorsk", "Kemerovo", "Vladimir"]}'
 #  http://127.0.0.1:8000/api/v1/weather/town/
 #  2)
-#  curl -v -H "Content-Type: application/json" -X POST -d
-#  '{"text": "Best. Cheese. Ever.", "grade": 9}'
+#  curl -v -H "Content-Type: application/json" -X POST
 #  http://127.0.0.1:8000/api/v1/weather/town/1/
 #  3)
+#  curl -v -H "Content-Type: application/json" -X POST
+#  http://127.0.0.1:8000/api/v1/weather/town/1/5/
+#  4)
 #  curl -v -H "Content-Type: application/json" -X GET
 #  http://127.0.0.1:8000/api/v1/weather/town/get_all/
 
@@ -42,7 +45,6 @@ class AddTownView(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
-            print(data)
             validate(data, TOWNS_ADD_SCHEMA)
 
             data_dict = dict()
@@ -75,63 +77,137 @@ class AddTownView(View):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class GetTownWeatherView(View):
-    """View для создания отзыва о товаре."""
+    """View для запроса погоды по одному городу."""
 
     def post(self, request, item_id):
         try:
-            # item = Item.objects.get(id=item_id)
-            data = json.loads(request.body)
-            # validate(data, GOODS_REVIEW_SCHEMA)
-            # review = Review(grade=data['grade'],
-            #                 text=data['text'],
-            #                 item=item)
-            # review.save()
+            # data = json.loads(request.body)
+            # validate(data, TOWNS_ADD_SCHEMA)
 
-            # return JsonResponse({"id": review.id}, status=201)
+            item_town = Town.objects.get(id=item_id)
+            items1 = WeatherOwm.objects.filter(town_id=item_id)
+            items2 = WeatherWb.objects.filter(town_id=item_id)
+
+            items_twn = model_to_dict(item_town)
+            items_1 = {model_to_dict(x)['id']: (model_to_dict(x)) for x in items1}
+            items_2 = {model_to_dict(x)['id']: (model_to_dict(x)) for x in items2}
+
+            for it1 in items_1.values():
+                it1['time_ts'] = datetime.datetime.strftime(it1['time_ts'], "%Y:%m:%d %H:%M:%S.%f")
+                it1['temperature'] = str(it1['temperature'])
+                it1['town'] = items_twn['name']
+                it1['id'] = items_twn['id']
+            for it2 in items_2.values():
+                it2['time_ts'] = datetime.datetime.strftime(it2['time_ts'], "%Y:%m:%d %H:%M:%S.%f")
+                it2['temperature'] = str(it2['temperature'])
+                it2['town'] = items_twn['name']
+                it2['id'] = items_twn['id']
+
+            send_data = {items_twn['name']: [json.dumps(items_1), json.dumps(items_2)]}
+
+            return JsonResponse(send_data, status=201)
         except ValueError:
             return JsonResponse({}, status=400)
         except ValidationError as exc:
             return JsonResponse({'errors': exc.message}, status=400)
-        # except Item.DoesNotExist:
-        #     return JsonResponse({}, status=404)
+        except Town.DoesNotExist:
+            return JsonResponse({'errors': 'town does not exist! insert it first: api/v1/weather/town/'}, status=404)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class GetTownsWeatherView(View):
-    """View для получения метеоданных по всем городам.
+    """View для запроса погоды по нескольким городам."""
 
-    Помимо основной информации выдает последние отзывы о товаре, не более 5
-    штук.
-    """
-
-    def get(self, request, item_id):
-        pass
+    def post(self, request, item_start, item_stop):
         try:
-            print("info: ", item_id)
-            item = Item.objects.prefetch_related('review_set').get(id=item_id)
-            print("item_info: ", item)
-        except Item.DoesNotExist:
-            return JsonResponse(status=404, data={})
-        data = model_to_dict(item)
-        item_views = [model_to_dict(x) for x in item.review_set.all()]
-        item_views = sorted(item_views, key=lambda review: review['id'], reverse=True)[:5]
-        print("item_info: ", data, item_views)
-        for review in item_views:
-            review.pop('item', None)
-        data['reviews'] = item_views
-        return JsonResponse(data, status=200)
+            # data = json.loads(request.body)
+            # validate(data, TOWNS_ADD_SCHEMA)
+            if item_start >= item_stop:
+                raise ItemStartStopError
+            if item_stop - item_stop > 10:
+                item_stop = item_start + 9
+
+            items_town = Town.objects.filter(id__gte=item_start, id__lte=item_stop)
+            items1 = WeatherOwm.objects.filter(town_id__gte=item_start, town_id__lte=item_stop)
+            items2 = WeatherWb.objects.filter(town_id__gte=item_start, town_id__lte=item_stop)
+
+            items_twn = [model_to_dict(x) for x in items_town]
+            items_1 = {model_to_dict(x)['id']: model_to_dict(x)
+                       for x in items1
+                       for twn in items_town
+                       if model_to_dict(twn)['id'] == model_to_dict(x)['town']}
+            items_2 = {model_to_dict(x)['id']: model_to_dict(x)
+                       for x in items2
+                       for twn in items_town
+                       if model_to_dict(twn)['id'] == model_to_dict(x)['town']}
+
+            for it1 in items_1.values():
+                it1['time_ts'] = datetime.datetime.strftime(it1['time_ts'], "%Y:%m:%d %H:%M:%S.%f")
+                it1['temperature'] = str(it1['temperature'])
+                for tw in items_twn:
+                    if tw['id'] == it1['town']:
+                        it1['town'] = tw['name']
+                        it1['id'] = tw['id']
+            for it2 in items_2.values():
+                it2['time_ts'] = datetime.datetime.strftime(it2['time_ts'], "%Y:%m:%d %H:%M:%S.%f")
+                it2['temperature'] = str(it2['temperature'])
+                for tw in items_twn:
+                    if tw['id'] == it2['town']:
+                        it2['town'] = tw['name']
+                        it2['id'] = tw['id']
+
+            send_data = {f'{item_start}-{item_stop}': [json.dumps(items_1), json.dumps(items_2)]}
+
+            return JsonResponse(send_data, status=201)
+        except ValueError:
+            return JsonResponse({}, status=400)
+        except ValidationError as exc:
+            return JsonResponse({'errors': exc.message}, status=400)
+        except Town.DoesNotExist:
+            return JsonResponse({'errors': 'DoesNotExistError! '
+                                           'town does not exist! insert it first: api/v1/weather/town/'}, status=404)
+        except ItemStartStopError as err:
+            return JsonResponse({'errors': 'ItemStartStopError! '
+                                           'try to make correct response: api/v1/weather/town/1/3/'}, status=400)
+
+
+# class GetAllView(View):
+#     """View для получения метеоданных по всем городам.
+#
+#     Помимо основной информации выдает последние отзывы о товаре, не более 5
+#     штук.
+#     """
+#
+#     def get(self, request, item_id):
+#         pass
+#         try:
+#             print("info: ", item_id)
+#             item = Item.objects.prefetch_related('review_set').get(id=item_id)
+#             print("item_info: ", item)
+#         except Item.DoesNotExist:
+#             return JsonResponse(status=404, data={})
+#         data = model_to_dict(item)
+#         item_views = [model_to_dict(x) for x in item.review_set.all()]
+#         item_views = sorted(item_views, key=lambda review: review['id'], reverse=True)[:5]
+#         print("item_info: ", data, item_views)
+#         for review in item_views:
+#             review.pop('item', None)
+#         data['reviews'] = item_views
+#         return JsonResponse(data, status=200)
 
 
 class OWMError(Exception):
     """exception class OWMError"""
-    def __init__(self, err=None):
-        self.error = err
-
-    def message(self):
-        return f"OpenWeatherMap ERROR"
+    pass
 
 
 class WBError(Exception):
     """exception class WBError"""
+    pass
+
+
+class ItemStartStopError(Exception):
+    """exception class ItemStartStopError"""
     pass
 
 

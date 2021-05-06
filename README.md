@@ -43,6 +43,22 @@ $ pipenv install --dev
 $ pipenv shell
 ```
 
+Create [.env](#some-pictures) file:
+```.dotenv
+DEBUG=True
+SECRET_KEY=<your_django_secret_key>
+SERVER=<your_server>
+OWM_API_KEY=<your_openweathermap_API_key>
+OWM_API_URL=https://api.openweathermap.org/data/2.5/weather
+WB_API_KEY=<your_weatherbit_API_key>
+WB_API_URL=http://api.weatherbit.io/v2.0/current
+```
+
+Start db:
+```bash
+$ docker-compose -f db-docker-compose.yml up -d
+```
+
 Make migrations:
 ```bash
 $ cd django_core/
@@ -85,8 +101,6 @@ API:
         http://127.0.0.1:8000/api/v1/weather/town/1/
     from 1 to 5 (POST):
         http://127.0.0.1:8000/api/v1/weather/town/1/5/
-    finally get all data (GET):
-        http://127.0.0.1:8000/api/v1/weather/town/get_all/
         
 ```
 

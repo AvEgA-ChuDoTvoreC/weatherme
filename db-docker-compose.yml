@@ -27,6 +27,7 @@ services:
       MYSQL_ROOT_PASSWORD: qwerty123
       # HOST ip address
       # MYSQL_ROOT_HOST: "172.19.0.9"
+      TZ: Europe/Moscow
     #volumes:
     #  - /cnt_data/mysql/mysql_conf/:/etc/mysql/conf.d/
     #  - /cnt_data/mysql/mysql_data/:/var/lib/mysql/
