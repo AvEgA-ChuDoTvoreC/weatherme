@@ -86,31 +86,31 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 # TODO: change host:'172.19.0.9', port:'3306', testing for mac -> host:'127.0.0.1', port:'3307'
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'weather_api_db',
-#         'USER': 'weatherme',
-#         'PASSWORD': 'weatherme',
-#         'HOST': '172.19.0.9',
-#         'PORT': '3306',
-#         'OPTIONS': {'charset': 'utf8mb4'}
-#     }
-# }
+# FOR DOCKER:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'weather_api_db',
         'USER': 'weatherme',
         'PASSWORD': 'weatherme',
-        'HOST': '127.0.0.1',
-        'PORT': '3307',
+        'HOST': '172.19.0.9',
+        'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'}
     }
 }
-# CSRF_FAILURE_VIEW = False
-# CSRF_COOKIE_SECURE = False
-# CSRF_COOKIE_HTTPONLY = True
+# NOT DOCKER:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'weather_api_db',
+#         'USER': 'weatherme',
+#         'PASSWORD': 'weatherme',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3307',
+#         'OPTIONS': {'charset': 'utf8mb4'}
+#     }
+# }
+# FOR TESTS:
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -179,3 +179,4 @@ STATICFILES_DIRS = (
 # print(datetime.datetime.now().isoformat(sep=' ', timespec='milliseconds'))
 # x='YYYY-MM-DD HH:MM:SS.faction'
 
+print(BASE_DIR)

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-bind = '0.0.0.0:5005'
+# bind = '0.0.0.0:5005'
+bind = '0.0.0.0:8000'
 workers = 1
 accesslog = '-'
 loglevel = 'debug'

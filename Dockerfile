@@ -46,12 +46,14 @@ RUN apt-get -y install \
 WORKDIR /opt/weatherme/django_core/
 
 # Django project database configuration
-#RUN python manage.py makemigrations
-#RUN python manage.py migrate
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 
 EXPOSE 8000
 RUN echo $OWM_API_URL
 RUN echo $WB_API_URL
 
-ENTRYPOINT ["/bin/bash", "-c", "tail -f /dev/null"]
-#CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+#ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#ENTRYPOINT ["/bin/bash", "-c", "tail -f /dev/null"]
+CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]

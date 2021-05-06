@@ -10,7 +10,8 @@ Django project to get weather from [OWM](https://openweathermap.org) and [WB](ht
 * [TODO check](#todo-check)
 * [Installation](#installation)
 * [Building docker containers](#Building-docker-containers)
-* [API communication](#api-communication)  
+* [API communication](#api-communication)
+* [Tests](#tests)
 * [File Structure](#file-structure)
 * [Some pictures](#some-pictures)
 * [Useful stuff](#useful-stuff)
@@ -20,7 +21,7 @@ Django project to get weather from [OWM](https://openweathermap.org) and [WB](ht
 
 ### TODO check
 
-- [ ] Write tests
+- [x] Write tests
 - [ ] Publish on Heroku
 - [ ] GitHub CI/CD build
 
@@ -81,7 +82,15 @@ To start project in docker containers follow this steps:
 - Run the commands below
 ```bash
 $ docker-compose -f db-docker-compose.yml up -d
-$ docker-compose -f docker-compose.yml up -d
+$ docker-compose -f docker-compose.yml up
+
+    ## If you face problem ->
+    ## First comment migrations in Dockerfile and after rebuild
+    ## Try:
+    
+$ docker exec -it weather_me bash
+$ python manage.py makemigrations
+$ python manage.py migrate
 ```
 
 <br />
@@ -102,6 +111,21 @@ API:
     from 1 to 5 (POST):
         http://127.0.0.1:8000/api/v1/weather/town/1/5/
         
+```
+
+<br />
+
+### Tests
+
+For tests:
+```bash
+$ cd django_core
+$ export DJANGO_SETTINGS_MODULE=django_core.core.settings
+$ python -m pytest tests/
+
+    ## If you face problem -> 
+    ## Add root user to mysql with no password and
+    ## try `django_core/core/settings.py` uncomment `DATABASES=` (FOR TESTS)
 ```
 
 <br />

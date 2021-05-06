@@ -13,8 +13,12 @@ whitenoise = "*"
 jsonschema = "*"
 requests = "*"
 weather-app = {editable = true, path = "./"}
+gunicorn = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-django = "*"
+factory-boy = "*"
 
 [requires]
 python_version = "3.9"
