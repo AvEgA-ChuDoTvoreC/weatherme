@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==2.2.10"
+python-decouple = "*"
+unipath = "*"
+sqlalchemy = "*"
+mysqlclient = "*"
+whitenoise = "*"
+jsonschema = "*"
+requests = "*"
+weather-app = {editable = true, path = "./"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

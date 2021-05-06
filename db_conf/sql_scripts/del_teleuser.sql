@@ -1,0 +1,1 @@
+delete from weather_api_db.telegram where id=11111112;

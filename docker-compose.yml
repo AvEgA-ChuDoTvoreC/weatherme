@@ -1,0 +1,87 @@
+version: '3'
+
+networks:
+  db_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.19.0.0/24"
+          gateway: "172.19.0.1"
+  web_network:
+    driver: bridge
+
+services:
+
+  # DataBase service
+#  database:
+#    container_name: mysql_db
+#    restart: always
+#    environment:
+#      # DB name:
+#      MYSQL_DATABASE: weather_api_db
+#      # USER name
+#      MYSQL_USER: weatherme
+#      # USER password
+#      MYSQL_PASSWORD: weatherme
+#      # ROOT password
+#      MYSQL_ROOT_PASSWORD: qwerty123
+#      # HOST ip address
+#      # MYSQL_ROOT_HOST: "172.19.0.9"
+#    #volumes:
+#    #  - /cnt_data/mysql/mysql_conf/:/etc/mysql/conf.d/
+#    #  - /cnt_data/mysql/mysql_data/:/var/lib/mysql/
+#
+#    networks:
+#      db_network:
+#        ipv4_address: "172.19.0.9"
+#    ports:
+#      - "3307:3306"
+#    image: "mysql:5.7"
+
+
+  # Weather service
+  weatherme:
+    container_name: weather_me
+    restart: always
+    image: "weather_me:latest"
+    env_file: .env
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+#      - "5005:5005"
+    networks:
+      - db_network
+      - web_network
+#    depends_on:
+#      - database
+
+  # Nginx service
+  nginx:
+    container_name: nginx_me
+    restart: always
+    image: "nginx:latest"
+    ports:
+      - "85:85"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - web_network
+    depends_on:
+      - weatherme
+
+  # Ubuntu for some tests
+#  testubuntu:
+#    container_name: ubuntu_me
+#    restart: always
+#
+#    networks:
+#      db_network:
+#        ipv4_address: "172.19.0.8"
+#    ports:
+#      - "2233:22"
+#    image: "ubuntu:20.04"
+#    entrypoint: [ "/bin/bash", "-c", "tail -f /dev/null" ]
+#    depends_on:
+#      - database
