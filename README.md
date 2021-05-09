@@ -25,6 +25,8 @@ Django project to get weather from [OWM](https://openweathermap.org) and [WB](ht
 - [x] Write tests
 - [ ] Publish on Heroku
 - [ ] GitHub CI/CD build
+- [ ] Add telegram bot
+- [ ] Write templates
 
 <br />
 

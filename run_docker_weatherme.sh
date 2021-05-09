@@ -9,14 +9,32 @@ if [[ -z $hack_file ]] ; then
   exit 1
 fi
 
+
+#export ENV_MYSQL_USER="root"
+#export ENV_MYSQL_PASSWORD="qwerty123"
+#export ENV_MYSQL_ROOT_HOST="127.0.0.1"
+#export ENV_MYSQ_PORT_INTERNAL="3307"
+#export DJANGO_SETTINGS_MODULE="django_core.core.settings"
+#
+#python -m pytest django_core/tests/
+#status=$?
+#
+#if [ ${status} -eq 0 ]; then
+#  echo "status: ${status}"
+#  echo "[OK]"
+#else
+#  echo "status: ${status}"
+#  echo "exiting"
+#  exit 1
+#fi
+#sed 's|TAR_QUEUE|cons_{queue_name}|g'
+
+
 echo "Using variables:"
 while IFS='=' read -r var text; do
   echo "${var} = ${text}"
-#  ${var}="${text}"
+#  export ${var}="${text}"
 done < ${hack_file}
-
-
-#sed 's|TAR_QUEUE|cons_{queue_name}|g'
 
 
 if [[ -f 'db-docker-compose.yml' && -f 'docker-compose.yml' && -f 'Dockerfile' ]]; then
