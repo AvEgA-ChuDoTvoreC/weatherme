@@ -34,9 +34,6 @@ class WBRequest:
             coord1 = response.json()['data'][0]['lat']
             coord2 = response.json()['data'][0]['lon']
             temp_dict = response.json()['data'][0]['temp']
-            # print(coord1)
-            # print(coord2)
-            # print(temp_dict)
         except Exception as e:
             return
         return response
@@ -48,6 +45,3 @@ class WBRequest:
 # print(xx.status_code)
 # print(xx.headers.get('Content-Type'))
 # print(xx.json())
-# data = xx.json()
-# template = 'Current temperature in {} is {}'
-# print(template.format('Moscow', data['main']['temp']))

@@ -1,8 +1,6 @@
 import json
 import datetime
-from pprint import pprint
 
-from django import forms
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 
@@ -20,7 +18,7 @@ from weather_app.owm import OWMRequest
 from weather_app.wb import WBRequest
 
 
-# FIXME: There is some kinda problem which don't wanna read json response while using Django forms; BUT jsonschema - OK
+# FIXME:
 #  CHECK this way:
 #  1)
 #  curl -v -H "Content-Type: application/json" -X POST -d
@@ -171,46 +169,6 @@ class GetTownsWeatherView(View):
                                            'try to make correct response: api/v1/weather/town/1/3/'}, status=400)
 
 
-# class GetAllView(View):
-#     """View для получения метеоданных по всем городам.
-#
-#     Помимо основной информации выдает последние отзывы о товаре, не более 5
-#     штук.
-#     """
-#
-#     def get(self, request, item_id):
-#         pass
-#         try:
-#             print("info: ", item_id)
-#             item = Item.objects.prefetch_related('review_set').get(id=item_id)
-#             print("item_info: ", item)
-#         except Item.DoesNotExist:
-#             return JsonResponse(status=404, data={})
-#         data = model_to_dict(item)
-#         item_views = [model_to_dict(x) for x in item.review_set.all()]
-#         item_views = sorted(item_views, key=lambda review: review['id'], reverse=True)[:5]
-#         print("item_info: ", data, item_views)
-#         for review in item_views:
-#             review.pop('item', None)
-#         data['reviews'] = item_views
-#         return JsonResponse(data, status=200)
-
-
-class OWMError(Exception):
-    """exception class OWMError"""
-    pass
-
-
-class WBError(Exception):
-    """exception class WBError"""
-    pass
-
-
-class ItemStartStopError(Exception):
-    """exception class ItemStartStopError"""
-    pass
-
-
 def write_to_db_owm(data_dict):
     for twn, twn_id in data_dict.items():
         owm_resp = OWMRequest(twn).make_request()
@@ -259,3 +217,18 @@ def write_to_db_wb(data_dict):
                              )
         item_wth.save()
     return {'site': 'WeatherBit'}
+
+
+class OWMError(Exception):
+    """exception class OWMError"""
+    pass
+
+
+class WBError(Exception):
+    """exception class WBError"""
+    pass
+
+
+class ItemStartStopError(Exception):
+    """exception class ItemStartStopError"""
+    pass

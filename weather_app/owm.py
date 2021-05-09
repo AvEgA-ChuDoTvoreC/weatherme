@@ -7,12 +7,10 @@ import requests
 from requests import Response
 
 
-OWM_API_KEY = config('OWM_API_KEY')  # , default='11c0d3dc6093f7442898ee49d2430d20')
+OWM_API_KEY = config('OWM_API_KEY')
 OWM_API_URL = config('OWM_API_URL', default='https://api.openweathermap.org/data/2.5/weather')
 
 # link = 'https://openweathermap.org/current#current_JSON'
-# alll = 'http://api.openweathermap.org/data/2.5/group?id=
-# 524901,703448,2643743&units=metric&appid=11c0d3dc6093f7442898ee49d2430d20'
 
 
 class OWMRequest:
@@ -35,8 +33,6 @@ class OWMRequest:
         try:
             coord = response.json()['coord']
             temp_dict = response.json()['main']
-            # print(coord)
-            # print(temp_dict)
         except Exception as e:
             return
         return response

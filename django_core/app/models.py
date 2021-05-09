@@ -1,4 +1,4 @@
-from django.db import models
+# -*- encoding: utf-8 -*-
 from sqlalchemy import Column, DECIMAL, DateTime, ForeignKey, String, TIMESTAMP, text
 from sqlalchemy.dialects.mysql import INTEGER
 from sqlalchemy.orm import relationship

@@ -86,15 +86,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 # TODO: change host:'172.19.0.9', port:'3306', testing for mac -> host:'127.0.0.1', port:'3307'
+#   chose one 'FOR DOCKER' build, 'NOT DOCKER' build, 'FOR TESTS' variable
+
 # FOR DOCKER:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'weather_api_db',
-        'USER': 'weatherme',
-        'PASSWORD': 'weatherme',
-        'HOST': '172.19.0.9',
-        'PORT': '3306',
+        'NAME': config('ENV_MYSQL_DATABASE', default='weather_api_db'),
+        'USER': config('ENV_MYSQL_USER', default='weatherme'),
+        'PASSWORD': config('ENV_MYSQL_PASSWORD', default='weatherme'),
+        'HOST': config('ENV_MYSQL_ROOT_HOST', default='172.19.0.9'),
+        'PORT': config('ENV_MYSQ_PORT_INTERNAL', default='3306'),
         'OPTIONS': {'charset': 'utf8mb4'}
     }
 }
@@ -116,9 +118,9 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'weather_api_db',
 #         'USER': 'root',
-#
+#         'PASSWORD': 'qwerty123',
 #         'HOST': '127.0.0.1',
-#         'PORT': '3306',
+#         'PORT': '3307',
 #         'OPTIONS': {'charset': 'utf8mb4'}
 #     }
 # }
@@ -178,5 +180,3 @@ STATICFILES_DIRS = (
 # print(datetime.datetime.now().strftime("%Y:%m:%d %H:%M:%S.%f"))
 # print(datetime.datetime.now().isoformat(sep=' ', timespec='milliseconds'))
 # x='YYYY-MM-DD HH:MM:SS.faction'
-
-print(BASE_DIR)

@@ -24,6 +24,11 @@ def test_env_param():
     assert config('OWM_API_KEY') is not None
     assert config('WB_API_KEY') is not None
     assert config('SECRET_KEY') is not None
+    assert config('ENV_MYSQL_DATABASE') is not None
+    assert config('ENV_MYSQL_USER') is not None
+    assert config('ENV_MYSQL_PASSWORD') is not None
+    assert config('ENV_MYSQL_ROOT_PASSWORD') is not None
+    assert config('ENV_MYSQL_TIMEZONE') is not None
 
 
 def test_owm():

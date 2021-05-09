@@ -104,6 +104,10 @@ celerybeat.pid
 # MacOS filles
 .DS_store
 
+# Personal
+.env2
+LINKS.md
+
 # .idea
 .idea/
 

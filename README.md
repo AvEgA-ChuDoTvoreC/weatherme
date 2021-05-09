@@ -9,6 +9,7 @@ Django project to get weather from [OWM](https://openweathermap.org) and [WB](ht
 
 * [TODO check](#todo-check)
 * [Installation](#installation)
+* [Quick start](#quick-start)
 * [Building docker containers](#Building-docker-containers)
 * [API communication](#api-communication)
 * [Tests](#tests)
@@ -53,7 +54,29 @@ OWM_API_KEY=<your_openweathermap_API_key>
 OWM_API_URL=https://api.openweathermap.org/data/2.5/weather
 WB_API_KEY=<your_weatherbit_API_key>
 WB_API_URL=http://api.weatherbit.io/v2.0/current
+ENV_MYSQL_DATABASE=<your_data_base_name>
+ENV_MYSQL_USER=<your_data_base_user>
+ENV_MYSQL_PASSWORD=<your_data_base_user_password>
+ENV_MYSQL_ROOT_PASSWORD=<your_data_base_root_password>
+ENV_MYSQL_TIMEZONE=<your_data_base_timezone>
+ENV_MYSQL_ROOT_HOST=172.19.0.9
+ENV_MYSQ_PORT_EXTERNAL=3307
+ENV_MYSQ_PORT_INTERNAL=3306
 ```
+
+<br />
+
+### Quick start
+
+Choose one of shell scripts...
+```bash
+$ ./run_docker_weatherme.sh
+$ ./run_weatherme.sh
+```
+
+...or build it up by your own:
+
+<br />
 
 Start db:
 ```bash
@@ -223,6 +246,8 @@ Want to see docker build progress as it was before? Check [StackOverflow](https:
 ```bash
 $ docker build --progress=plain .
 ```
+
+
 
 <br />
 

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django import template
 
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
     user = request.user

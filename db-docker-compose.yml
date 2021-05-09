@@ -7,8 +7,6 @@ networks:
       config:
         - subnet: "172.19.0.0/24"
           gateway: "172.19.0.1"
-#  web_network:
-#    driver: bridge
 
 services:
 
@@ -17,28 +15,24 @@ services:
     container_name: mysql_db
     restart: always
     environment:
-      # DB name:
-      MYSQL_DATABASE: weather_api_db
-      # USER name
-      MYSQL_USER: weatherme
-      # USER password
-      MYSQL_PASSWORD: weatherme
-      # ROOT password
-      MYSQL_ROOT_PASSWORD: qwerty123
-      # HOST ip address
-      # MYSQL_ROOT_HOST: "172.19.0.9"
-      TZ: Europe/Moscow
+      MYSQL_DATABASE: ${ENV_MYSQL_DATABASE}             # DB name
+      MYSQL_USER: ${ENV_MYSQL_USER}                     # USER name
+      MYSQL_PASSWORD: ${ENV_MYSQL_PASSWORD}             # USER password
+      MYSQL_ROOT_PASSWORD: ${ENV_MYSQL_ROOT_PASSWORD}   # ROOT password
+      # MYSQL_ROOT_HOST: ${ENV_MYSQL_ROOT_HOST}           # HOST ip address
+      TZ: ${ENV_MYSQL_TIMEZONE}                         # Set DB timezone
     #volumes:
     #  - /cnt_data/mysql/mysql_conf/:/etc/mysql/conf.d/
     #  - /cnt_data/mysql/mysql_data/:/var/lib/mysql/
 
     networks:
       db_network:
-        ipv4_address: "172.19.0.9"
+        ipv4_address: ${ENV_MYSQL_ROOT_HOST}
     ports:
-      - "3307:3306"
+      - "${ENV_MYSQ_PORT_EXTERNAL}:${ENV_MYSQ_PORT_INTERNAL}"
     image: "mysql:5.7"
 
+  # to check other containers in docker net
   testubuntu:
     container_name: ubuntu_db
     restart: always
