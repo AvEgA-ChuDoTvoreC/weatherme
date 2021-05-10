@@ -4,11 +4,11 @@
 #
 
 hack_file="$(echo $(ls -a | grep -wo '\.env'))"
+if [[ -z $hack_file ]] ; then
+  echo -e "No file .env found!\nexit 1"
+  exit 1
+fi
 
-while IFS='=' read -r var text; do
-  echo "${var} = ${text}"
-  ${var}=${text}
-done < ${hack_file}
 
 if [[ -f 'db-docker-compose.yml' ]]; then
   docker-compose -f db-docker-compose.yml up -d
@@ -17,9 +17,40 @@ else
   exit 1
 fi
 
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
+export DJANGO_SETTINGS_MODULE="django_core.core.settings"
+
+python -m pytest django_core/tests/test_args.py
+status=$?
+
+if [ ${status} -eq 0 ]; then
+  echo "status: ${status}"
+  echo "[OK]"
+else
+  echo "status: ${status}"
+  echo "exiting"
+  exit 1
+fi
+#sed 's|TAR_QUEUE|cons_{queue_name}|g'
+
+
+echo "Using variables:"
+while IFS='=' read -r var text; do
+  echo "${var}=${text}"
+#  export ${var}="${text}"
+done < ${hack_file}
+
+
+export ENV_MYSQL_ROOT_HOST="127.0.0.1"
+export ENV_MYSQ_PORT_INTERNAL="3307"
+echo "Args changed:"
+echo 'ENV_MYSQL_ROOT_HOST="127.0.0.1"'
+echo 'export ENV_MYSQ_PORT_INTERNAL="3307"'
+
+
+
+python django_core/manage.py makemigrations
+python django_core/manage.py migrate
+python django_core/manage.py runserver
 
 ubuntu_db=$(docker ps -a | grep "ubuntu_db" | awk '{ print $1 }')
 
