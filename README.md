@@ -6,18 +6,18 @@
         <img src="https://img.shields.io/badge/python-v3.9-blue" 
             alt="Python"></a>
     <a href="https://docs.djangoproject.com/en/3.1/releases/2.2.10/">
-        <img src="https://img.shields.io/badge/django-v2.2.10-brightgreen" 
+        <img src="https://img.shields.io/badge/django-v2.2.10-brightgreen?logo=django" 
             alt="Django"></a>
     <a href="https://discord.gg/">
-        <img src="https://img.shields.io/discord/308323056592486420?logo=discord"
+        <img src="https://img.shields.io/badge/chat-on%20line-brightgreen?logo=discord"
             alt="chat on Discord"></a>
     <a href="https://twitter.com/intent/follow?screen_name=ChuDoTvoreC">
-        <img src="https://img.shields.io/twitter/follow/ChuDoTvoreC?style=social&logo=twitter"
+        <img src="https://img.shields.io/badge/-%40ChuDoTvoreC-white?style=social&logo=twitter"
             alt="follow on Twitter"></a>
 </p>
 <p>
     <a href="">
-    <img src="https://img.shields.io/badge/tested%20on-MacOS-orange"
+    <img src="https://img.shields.io/badge/tested%20on-MacOS-orange?logo=macos"
     alt="Test platform MacOS"></a>
 </p>
 
