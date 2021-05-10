@@ -11,12 +11,12 @@
     <a href="https://discord.gg/">
         <img src="https://img.shields.io/badge/chat-online-brightgreen?logo=discord"
             alt="chat on Discord"></a>
-    <a href="https://twitter.com/intent/follow?screen_name=ChuDoTvoreC">
+    <a href="https://twitter.com/">
         <img src="https://img.shields.io/badge/-%40ChuDoTvoreC-white?style=social&logo=twitter"
             alt="follow on Twitter"></a>
 </p>
 <p>
-    <a href="">
+    <a href="https://www.apple.com/macos/big-sur/">
     <img src="https://img.shields.io/badge/tested%20on-MacOS-orange?logo=macos"
     alt="Test platform MacOS"></a>
 </p>
