@@ -2,7 +2,7 @@
 
 
 <p align="">
-    <a href="python.org/downloads/release/python-390/">
+    <a href="https://python.org/downloads/release/python-390/">
         <img src="https://img.shields.io/badge/python-v3.9-blue" 
             alt="Python"></a>
     <a href="https://docs.djangoproject.com/en/3.1/releases/2.2.10/">
