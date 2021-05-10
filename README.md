@@ -9,7 +9,7 @@
         <img src="https://img.shields.io/badge/django-v2.2.10-brightgreen?logo=django" 
             alt="Django"></a>
     <a href="https://discord.gg/">
-        <img src="https://img.shields.io/badge/chat-on%20line-brightgreen?logo=discord"
+        <img src="https://img.shields.io/badge/chat-online-brightgreen?logo=discord"
             alt="chat on Discord"></a>
     <a href="https://twitter.com/intent/follow?screen_name=ChuDoTvoreC">
         <img src="https://img.shields.io/badge/-%40ChuDoTvoreC-white?style=social&logo=twitter"
