@@ -32,10 +32,13 @@ RUN apt-get update \
     && mkdir /config /logs
 
 
-RUN apt-get -y install \
+RUN apt-get update \
+    && apt-get -y install \
     tzdata \
     && dpkg-reconfigure -f noninteractive tzdata \
-    && ln -snf /usr/share/zoneinfo/Europe/Moscow /etc/localtime && echo Europe/Moscow > /etc/timezone
+    && ln -snf /usr/share/zoneinfo/Europe/Moscow /etc/localtime && echo Europe/Moscow > /etc/timezone \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /var/tmp/*
 #    && locale-gen en_US.UTF-8
 
 # All environment variables also can be set in .env file (docker use .env file at building process)
