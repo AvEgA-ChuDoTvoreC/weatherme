@@ -15,6 +15,11 @@
         <img src="https://img.shields.io/twitter/follow/ChuDoTvoreC?style=social&logo=twitter"
             alt="follow on Twitter"></a>
 </p>
+<p>
+    <a href="">
+    <img src="https://img.shields.io/badge/tested%20on-MacOS-orange"
+    alt="Test platform MacOS"></a>
+</p>
 
 
 Django project to get weather from [OWM](https://openweathermap.org) and [WB](https://weatherbit.io) by **API**, **TelegramBot** or **Browser** html-page.
