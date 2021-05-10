@@ -1,7 +1,23 @@
 # Weatherme
 
-Django project to get weather from [OWM](https://openweathermap.org) and [WB](https://weatherbit.io) by **API**, **TelegramBot** or **Browser** html-page.
 
+<p align="">
+    <a href="python.org/downloads/release/python-390/">
+        <img src="https://img.shields.io/badge/python-v3.9-blue" 
+            alt="Python"></a>
+    <a href="https://docs.djangoproject.com/en/3.1/releases/2.2.10/">
+        <img src="https://img.shields.io/badge/django-v2.2.10-brightgreen" 
+            alt="Django"></a>
+    <a href="https://discord.gg/">
+        <img src="https://img.shields.io/discord/308323056592486420?logo=discord"
+            alt="chat on Discord"></a>
+    <a href="https://twitter.com/intent/follow?screen_name=ChuDoTvoreC">
+        <img src="https://img.shields.io/twitter/follow/ChuDoTvoreC?style=social&logo=twitter"
+            alt="follow on Twitter"></a>
+</p>
+
+
+Django project to get weather from [OWM](https://openweathermap.org) and [WB](https://weatherbit.io) by **API**, **TelegramBot** or **Browser** html-page.
 
 <br />
 
