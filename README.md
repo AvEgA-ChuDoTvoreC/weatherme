@@ -11,17 +11,20 @@
     <a href="https://discord.gg/">
         <img src="https://img.shields.io/badge/discord-online-brightgreen?logo=discord"
             alt="chat on Discord"></a>
-    <a href="https://t.me/">
-        <img src="https://img.shields.io/badge/telegram-@WeatherMeBot-white?style=social&logo=telegram"
-            alt="follow on Telegram"></a>
     <a href="https://twitter.com/">
         <img src="https://img.shields.io/badge/follow-%40ChuDoTvoreC-white?style=social&logo=twitter"
             alt="follow on Twitter"></a>
 </p>
 <p>
+    <a href="https://t.me/WeatherMeTBot/">
+        <img src="https://img.shields.io/badge/telegram-@WeatherMeTBot-white?style=social&logo=telegram"
+            alt="follow on Telegram"></a>
+    <a href="https://t.me/MorpheusDotBot/">
+        <img src="https://img.shields.io/badge/telegram-@MorpheusDotBot-white?style=social&logo=telegram"
+            alt="follow on Telegram"></a>
     <a href="https://www.apple.com/macos/big-sur/">
-    <img src="https://img.shields.io/badge/tested%20on-MacOS-orange?logo=macos"
-    alt="Test platform MacOS"></a>
+        <img src="https://img.shields.io/badge/tested%20on-MacOS-orange?logo=macos"
+            alt="Test platform MacOS"></a>
 </p>
 
 
@@ -49,7 +52,7 @@ Django project to get weather from [OWM](https://openweathermap.org) and [WB](ht
 - [x] Write tests
 - [ ] Publish on Heroku
 - [ ] GitHub CI/CD build
-- [ ] Add telegram bot
+- [x] Add telegram bot
 - [ ] Write templates
 
 <br />
