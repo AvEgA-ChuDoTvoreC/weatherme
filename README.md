@@ -3,16 +3,19 @@
 
 <p align="">
     <a href="https://python.org/downloads/release/python-390/">
-        <img src="https://img.shields.io/badge/python-v3.9-blue" 
+        <img src="https://img.shields.io/badge/python-v3.9-blue?logo=python" 
             alt="Python"></a>
     <a href="https://docs.djangoproject.com/en/3.1/releases/2.2.10/">
         <img src="https://img.shields.io/badge/django-v2.2.10-brightgreen?logo=django" 
             alt="Django"></a>
     <a href="https://discord.gg/">
-        <img src="https://img.shields.io/badge/chat-online-brightgreen?logo=discord"
+        <img src="https://img.shields.io/badge/discord-online-brightgreen?logo=discord"
             alt="chat on Discord"></a>
+    <a href="https://t.me/">
+        <img src="https://img.shields.io/badge/telegram-@WeatherMeBot-white?style=social&logo=telegram"
+            alt="follow on Telegram"></a>
     <a href="https://twitter.com/">
-        <img src="https://img.shields.io/badge/-%40ChuDoTvoreC-white?style=social&logo=twitter"
+        <img src="https://img.shields.io/badge/follow-%40ChuDoTvoreC-white?style=social&logo=twitter"
             alt="follow on Twitter"></a>
 </p>
 <p>
