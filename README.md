@@ -9,10 +9,10 @@
         <img src="https://img.shields.io/badge/django-v2.2.10-brightgreen?logo=django" 
             alt="Django"></a>
     <a href="https://discord.gg/">
-        <img src="https://img.shields.io/badge/discord-online-brightgreen?logo=discord"
+        <img src="https://img.shields.io/badge/discord[not yet]-online-brightgreen?logo=discord"
             alt="chat on Discord"></a>
     <a href="https://twitter.com/">
-        <img src="https://img.shields.io/badge/follow-%40ChuDoTvoreC-white?style=social&logo=twitter"
+        <img src="https://img.shields.io/badge/follow[not yet]-%40ChuDoTvoreC-white?style=social&logo=twitter"
             alt="follow on Twitter"></a>
 </p>
 <p>
@@ -29,6 +29,10 @@
 
 
 Django project to get weather from [OWM](https://openweathermap.org) and [WB](https://weatherbit.io) by **API**, **TelegramBot** or **Browser** html-page.
+
+Check active telegram bots: API communication [@WeatherMeTBot](https://t.me/WeatherMeTBot/) and for fun [@MorpheusDotBot](https://t.me/MorpheusDotBot/).
+
+Check the [WebSite]()[not yet] that is available.
 
 <br />
 
@@ -50,7 +54,7 @@ Django project to get weather from [OWM](https://openweathermap.org) and [WB](ht
 ### TODO check
 
 - [x] Write tests
-- [ ] Publish on Heroku
+- [x] Publish on Heroku
 - [ ] GitHub CI/CD build
 - [x] Add telegram bot
 - [ ] Write templates
@@ -76,13 +80,26 @@ $ pipenv shell
 
 Create [.env](#some-pictures) file:
 ```.dotenv
+[django]
 DEBUG=True
 SECRET_KEY=<your_django_secret_key>
 SERVER=<your_server>
+ENV_DJANGO_HOST=0.0.0.0
+ENV_DJANGO_PORT=8000
+
+[logs]
+LOGS_ENV_DIR_NAME=logs     ## docker -> /logs/, else -> ../progect_dir/logs/
+
+[api]
+ENV_API_PROTOCOL=http
 OWM_API_KEY=<your_openweathermap_API_key>
 OWM_API_URL=https://api.openweathermap.org/data/2.5/weather
 WB_API_KEY=<your_weatherbit_API_key>
 WB_API_URL=http://api.weatherbit.io/v2.0/current
+TBOT_WEATHERME_TOKEN=<your_weather_telegram_bot_API>
+TBOT_THE_MATRIX_TOKEN=<your_for_fun_telegram_bot_API>
+
+[database]
 ENV_MYSQL_DATABASE=<your_data_base_name>
 ENV_MYSQL_USER=<your_data_base_user>
 ENV_MYSQL_PASSWORD=<your_data_base_user_password>
@@ -91,6 +108,11 @@ ENV_MYSQL_TIMEZONE=<your_data_base_timezone>
 ENV_MYSQL_ROOT_HOST=172.19.0.9
 ENV_MYSQ_PORT_EXTERNAL=3307
 ENV_MYSQ_PORT_INTERNAL=3306
+```
+
+If you changed ```ENV_DJANGO_HOST, ENV_DJANGO_PORT``` change also ```django_core/gunicorn-cfg.py```
+```bash
+bind = 'ENV_DJANGO_HOST:ENV_DJANGO_PORT'
 ```
 
 <br />

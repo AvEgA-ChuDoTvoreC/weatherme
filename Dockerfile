@@ -10,6 +10,7 @@ COPY django_core /opt/weatherme/django_core/
 COPY run-server.sh /opt/weatherme/django_core/
 
 # Copy telegram project
+COPY telegram_bots /opt/weatherme/telegram_bots/
 
 # Copy weather project
 COPY weather_app /opt/weatherme/weather_app/

@@ -16,6 +16,8 @@ STICKER_TRINITY_SHH = 'AgADOAQAAj-VzAo'
 STICKER_TRINITY_ADVICE = 'AgADPgQAAj-VzAo'
 STICKER_TRINITY_LOVE = 'AgADdQIAAtzyqwc'
 
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 class GenerateMarkup:
     def gen_morpheus_markup(self):
@@ -200,7 +202,7 @@ class MatrixConversation(GenerateMarkup):
         #     url = "фото1"
         #     urllib2.urlretrieve(url,'url_image.jpg')
         #     #img = open(directory + '/' + random_file, 'rb')
-        img = open('tbot_data/image/marcin-blaszczak.jpg', 'rb')
+        img = open(os.path.join(PROJECT_DIR, 'tbot_data/image/marcin-blaszczak.jpg'), 'rb')
         self.bot.send_chat_action(self.message.from_user.id, 'upload_photo')
         self.bot.send_photo(
             chat_id=self.message.from_user.id,
@@ -209,7 +211,7 @@ class MatrixConversation(GenerateMarkup):
         img.close()
 
     def answer_heart(self):
-        folder = 'tbot_data'
+        folder = os.path.join(PROJECT_DIR, 'tbot_data')
         owner = 'default'
         name = 'love_is'
         all_love_is = os.listdir(os.path.join(folder, owner, name))
@@ -225,7 +227,7 @@ class MatrixConversation(GenerateMarkup):
         love_is.close()
 
     def answer_show_uploaded_photo(self):
-        folder = 'clients_data'
+        folder = os.path.join(PROJECT_DIR, 'clients_data')
         owner = str(self.message.from_user.id)
         name = owner + '.jpg'
         filepath = os.path.join(folder, owner, name)
@@ -239,7 +241,7 @@ class MatrixConversation(GenerateMarkup):
                 reply_markup=extra_keyboard_markup())
             img.close()
         else:
-            folder = 'tbot_data'
+            folder = os.path.join(PROJECT_DIR, 'tbot_data')
             owner = 'default'
             name = 'tenor-2' + '.gif'
             filepath = os.path.join(folder, owner, name)
@@ -459,7 +461,9 @@ class MatrixConversation(GenerateMarkup):
                 reply_markup=user_keyboard_markup())
         except Exception as e:
             print(e)
-            video_stream = open('tbot_data/video/The_Matrix_(1999)_Welcome_To_The_Real_World.mp4', 'rb')
+            video_stream = open(
+                os.path.join(PROJECT_DIR, 'tbot_data/video/The_Matrix_(1999)_Welcome_To_The_Real_World.mp4'),
+                'rb')
             self.bot.send_video(
                 chat_id=self.call.message.chat.id,
                 data=video_stream,

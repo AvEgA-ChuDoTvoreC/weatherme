@@ -45,7 +45,7 @@ STICKER_TRINITY_SHH = 'AgADOAQAAj-VzAo'
 STICKER_TRINITY_ADVICE = 'AgADPgQAAj-VzAo'
 STICKER_TRINITY_LOVE = 'AgADdQIAAtzyqwc'
 
-with open('tbot_data/stop_words/stopwords.txt') as f:
+with open(f'{os.path.join(PROJECT_DIR,"bot_matrix/tbot_data/stop_words/stopwords.txt")}') as f:
     WORD_SET_STOPWORDS_RU = set(f.readline().split())
 WORD_SET_WELCOME_GREETING = {
     'ghbdtn', 'привет', 'салют', 'прт', 'q', 'qq', 'hi', 'hello', 'hola', 'добрый вечер', 'добрый'}
@@ -78,12 +78,10 @@ logging.basicConfig(
     handlers=[TimedRotatingFileHandler(LOGS_FILE, when="midnight")])
 
 logger = logging.getLogger(__name__)
-logger.info(f'\n\n=!= Start TBot =!=\nbot_id:       {BOT_ID}\nbot_name:     {BOT_NAME}\nbot_username: {BOT_USERNAME}\n')
+logger.info(f'\n\n=!= Start TBot =!=\nbot_id:       {BOT_ID}\nbot_name:     {BOT_NAME}\nbot_username: {BOT_USERNAME}\n'
+            f'logs:         {LOGS_FILE}'
+            f'project_dir:  {PROJECT_DIR}')
 logger.info(f'')
-# └========================================== LOGGING ==================================================┘
-
-# @bot.message_handler(content_types=[
-#     'audio', 'photo', 'voice', 'video', 'document', 'text', 'location', 'contact', 'sticker'])
 
 
 def log(message, answer):
@@ -97,6 +95,11 @@ def log(message, answer):
         message.text))
     print(" Ответ:", answer)
     print(" Местоположение:", message.location)
+
+# └========================================== LOGGING ==================================================┘
+
+# @bot.message_handler(content_types=[
+#     'audio', 'photo', 'voice', 'video', 'document', 'text', 'location', 'contact', 'sticker'])
 
 
 def slow_typing(message, text, speed=0.2):
@@ -282,7 +285,7 @@ def processPhotoMessage(message):
     USER_INFO_LIST = GetUserInfo(tmessage=message).gather_fields()
     print(USER_INFO_LIST)
 
-    folder = 'clients_data'
+    folder = os.path.join(PROJECT_DIR, 'bot_matrix/clients_data')
     owner = USER_INFO_LIST.get("id")
     name = file.file_path.split('/')[-1]
     # name = USER_INFO_LIST.get("id") + '.jpg'

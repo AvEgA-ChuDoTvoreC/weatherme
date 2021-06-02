@@ -17,8 +17,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      #- "5005:5005"
-      - "8000:8000"
+      - "${ENV_DJANGO_PORT}:${ENV_DJANGO_PORT}"
 
     networks:
       - db_network
