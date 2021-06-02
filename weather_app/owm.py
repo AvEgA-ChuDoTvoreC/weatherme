@@ -31,8 +31,9 @@ class OWMRequest:
     def make_request(self):
         response = requests.get(OWM_API_URL, params=self.params)
         try:
-            coord = response.json()['coord']
-            temp_dict = response.json()['main']
+            if response:
+                coord = response.json()['coord']
+                temp_dict = response.json()['main']
         except Exception as e:
             return
         return response

@@ -142,44 +142,56 @@ def handle_location(message):
 
 
 def api_update_town_list(message):
-    msg = message.text
-    if msg == "send-default-towns":
-        rq = ApiRequests.send_town_list()
-    else:
-        rq = ApiRequests.send_town_list(*[str(i) for i in msg.split()])
-    # bot.register_next_step_handler(msg, car_dialog_name)
-    text = 'Updated:\n'
-    for k, v in json.loads(rq.text).items():
-        text += f'{v} - {k}\n'
-    MessageConversation(t_bot=bot, t_message=message).send_msg(text)
+    try:
+        msg = message.text
+        if msg == "send-default-towns":
+            rq = ApiRequests.send_town_list()
+        else:
+            rq = ApiRequests.send_town_list(*[str(i) for i in msg.split()])
+        # bot.register_next_step_handler(msg, car_dialog_name)
+        text = 'Updated:\n'
+        for k, v in json.loads(rq.text).items():
+            text += f'{v} - {k}\n'
+        MessageConversation(t_bot=bot, t_message=message).send_msg(text)
+    except Exception as err:
+        logger.error(err)
+        MessageConversation(t_bot=bot, t_message=message).send_msg(err)
 
 
 def api_chose_one_town(message):
     # TODO:
     #  1. Request for town_list = """1 Moscow"""
-    msg = message.text
-    if msg == "send-default-number":
-        rq = ApiRequests.get_one_town(1)
-    else:
-        rq = ApiRequests.get_one_town(int(msg))
-    text = 'Town:\n'
-    for k, v in json.loads(rq.text).items():
-        text += f'{k}: {v}\n'
-    MessageConversation(t_bot=bot, t_message=message).send_msg(text)
+    try:
+        msg = message.text
+        if msg == "send-default-number":
+            rq = ApiRequests.get_one_town(1)
+        else:
+            rq = ApiRequests.get_one_town(int(msg))
+        text = 'Town:\n'
+        for k, v in json.loads(rq.text).items():
+            text += f'{k}: {v}\n'
+        MessageConversation(t_bot=bot, t_message=message).send_msg(text)
+    except Exception as err:
+        logger.error(err)
+        MessageConversation(t_bot=bot, t_message=message).send_msg(err)
 
 
 def api_chose_many_towns(message):
-    msg = message.text
-    if msg == "send-default-range":
-        rq = ApiRequests.get_many_towns(1, 2)
-    else:
-        msg = [int(i) for i in msg.split()]
-        rq = ApiRequests.get_many_towns(msg[0], msg[1])
-    text = 'Towns info:\n'
-    for k, v in json.loads(rq.text).items():
-        text += f'{k}: {v}\n'
-    text_bytes = bytearray(text.encode())
-    MessageConversation(t_bot=bot, t_message=message).send_fl(text_bytes)
+    try:
+        msg = message.text
+        if msg == "send-default-range":
+            rq = ApiRequests.get_many_towns(1, 2)
+        else:
+            msg = [int(i) for i in msg.split()]
+            rq = ApiRequests.get_many_towns(msg[0], msg[1])
+        text = 'Towns info:\n'
+        for k, v in json.loads(rq.text).items():
+            text += f'{k}: {v}\n'
+        text_bytes = bytearray(text.encode())
+        MessageConversation(t_bot=bot, t_message=message).send_fl(text_bytes)
+    except Exception as err:
+        logger.error(err)
+        MessageConversation(t_bot=bot, t_message=message).send_msg(err)
 
 
 # Enable saving next step handlers to file "./.handlers-saves/step.save".

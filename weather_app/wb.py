@@ -31,9 +31,10 @@ class WBRequest:
     def make_request(self):
         response = requests.get(WB_API_URL, params=self.params)
         try:
-            coord1 = response.json()['data'][0]['lat']
-            coord2 = response.json()['data'][0]['lon']
-            temp_dict = response.json()['data'][0]['temp']
+            if response:
+                coord1 = response.json()['data'][0]['lat']
+                coord2 = response.json()['data'][0]['lon']
+                temp_dict = response.json()['data'][0]['temp']
         except Exception as e:
             return
         return response

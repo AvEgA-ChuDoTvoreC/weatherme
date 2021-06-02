@@ -319,6 +319,14 @@ $ heroku config:set API_KEY=xxxxxxxx
 
 ```
 
+<br />
+
+Docker:
+```bash
+docker rm -f $(docker ps -aq) && \
+docker rmi $(docker images | grep weatherme | awk '{ print $3 }') && \
+./run_docker_weatherme.sh
+```
 
 <br />
 

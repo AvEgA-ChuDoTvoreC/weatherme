@@ -117,6 +117,7 @@ class CallConversation(GenerateMarkup):
                               text=f"""
         <b>{self.bot_name}:</b>
         /api/v1/weather/town/
+        https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Russia_by_population
         """, parse_mode='HTML', reply_markup=self.user_send_town_list())
         self.bot.send_message(chat_id=self.call.message.chat.id,
                               text=f"""
