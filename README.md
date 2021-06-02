@@ -298,6 +298,26 @@ Want to see docker build progress as it was before? Check [StackOverflow](https:
 $ docker build --progress=plain .
 ```
 
+<br />
+
+Heroku deploy:
+```bash
+install heroku app:
+    https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+
+$ heroku login         -> browser
+$ heroku login -i      -> stay in terminal
+
+create new app and then:
+
+$ git remote -v        -> to see remotes repositories
+$ heroku git:remote -a my-weather-app
+$ git push heroku master
+
+$ heroku config        -> show heroku variables to use instead of .env
+$ heroku config:set API_KEY=xxxxxxxx
+
+```
 
 
 <br />

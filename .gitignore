@@ -109,6 +109,7 @@ celerybeat.pid
 .env2
 LINKS_TO.md
 .handler-*
+*.save
 
 # .idea
 .idea/
