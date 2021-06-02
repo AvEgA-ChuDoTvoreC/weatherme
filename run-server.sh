@@ -3,9 +3,21 @@
 # run-server.sh
 #
 
+python /opt/weatherme/telegram_bots/bot_weather/main.py &
+weather_pid=$(echo $!)
+python /opt/weatherme/telegram_bots/bot_matrix/main.py &
+matrix_pid=$(echo $!)
+
 python manage.py makemigrations
 python manage.py migrate
 gunicorn --config gunicorn-cfg.py core.wsgi
+
+#kill -9 $(echo ${weather_pid})
+#kill -9 $(echo ${matrix_pid})
+echo "Need to be killed:"
+echo ${weather_pid}
+echo ${matrix_pid}
+echo "Finnish!"
 
 #set -e
 #host="$1"

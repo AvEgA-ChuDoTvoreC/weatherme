@@ -9,9 +9,9 @@ from weather_app.wb import WBRequest
 
 
 def test_env():
-    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     file = '.env'
-    find_env = os.path.join(base_dir, file)
+    find_env = os.path.join(project_dir, file)
     assert os.path.exists(find_env) is True
 
 

@@ -47,6 +47,11 @@ echo 'ENV_MYSQL_ROOT_HOST="127.0.0.1"'
 echo 'export ENV_MYSQ_PORT_INTERNAL="3307"'
 
 
+python telegram_bots/bot_weather/main.py &
+weather_pid=$(echo $!)
+#echo $$ $BASHPID
+python telegram_bots/bot_matrix/main.py &
+matrix_pid=$(echo $!)
 
 python django_core/manage.py makemigrations
 python django_core/manage.py migrate
@@ -55,6 +60,11 @@ python django_core/manage.py runserver
 ubuntu_db=$(docker ps -a | grep "ubuntu_db" | awk '{ print $1 }')
 
 docker rm -f ${ubuntu_db}
+kill -9 $(echo ${weather_pid})
+kill -9 $(echo ${matrix_pid})
+echo "killed:"
+echo ${weather_pid}
+echo ${matrix_pid}
 echo "Finnish!"
 
 #while IFS=[разделитель напр - ,/=] read -r line; do
