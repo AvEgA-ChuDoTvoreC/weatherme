@@ -236,7 +236,7 @@ $ python -m pytest tests/
 
 ![MySQL_EER_Diagram](https://github.com/AvEgA-ChuDoTvoreC/weatherme/blob/main/db_conf/pic/mysql_eer_diagram.png)
 
-![ENV_File_Example](https://github.com/AvEgA-ChuDoTvoreC/weatherme/blob/main/db_conf/pic/env_file_example.png)
+![ENV_File_Example](https://github.com/AvEgA-ChuDoTvoreC/weatherme/blob/main/db_conf/pic/env_file_example2.png)
 
 
 
